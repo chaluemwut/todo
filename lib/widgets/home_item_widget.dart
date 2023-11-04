@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo/controllers/home_controller.dart';
@@ -13,16 +15,21 @@ class HomeItemWidget extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 5),
         child: SizedBox(
-           width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width,
             child: Card(
-          child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(homeItemModel.title),
-                    Text(homeItemModel.description)
-                  ])),
-        )));
+              child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(homeItemModel.title),
+                        Text(homeItemModel.description),
+                        if (homeItemModel.imagePath != '')
+                          SizedBox(
+                              width: 60,
+                              child: Image.file(
+                                  File("${homeItemModel.imagePath}")))
+                      ])),
+            )));
   }
 }

@@ -19,6 +19,8 @@ class Home extends GetView<HomeController> {
             children: [
               Padding(padding: EdgeInsets.only(top: 20), child: Text('Search')),
               TextField(
+                  textInputAction: TextInputAction.search,
+                  onSubmitted: (value) => controller.search(value),
                   decoration:
                       InputDecoration(hintText: ': title or description')),
               Padding(
@@ -34,24 +36,26 @@ class Home extends GetView<HomeController> {
                               backgroundColor: controller.activeSearch.value[0]
                                   ? Theme.of(context).primaryColor
                                   : Colors.grey),
-                          onPressed: () {
-                            controller.activeSearch[0] =
-                                !controller.activeSearch.value[0];
-                            controller.activeSearch.refresh();
-                          },
+                          onPressed: () => controller.sort(0),
                           child: Text('Title')))),
                   Container(
                       width: (MediaQuery.sizeOf(context).width / 3) - 10,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text('Date'),
-                      )),
+                      child: Obx(() => ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: controller.activeSearch.value[1]
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey),
+                          onPressed: () => controller.sort(1),
+                          child: Text('Date')))),
                   Container(
                       width: (MediaQuery.sizeOf(context).width / 3) - 10,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text('Status'),
-                      )),
+                      child: Obx(() => ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: controller.activeSearch.value[2]
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey),
+                          onPressed: () => controller.sort(2),
+                          child: Text('Status')))),
                 ],
               )),
               Obx(() => Column(

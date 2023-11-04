@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:todo/controllers/add_controller.dart';
-import 'package:todo/routes/app_pages.dart';
 
 class Add extends GetView<AddController> {
   const Add({super.key});
@@ -28,7 +30,26 @@ class Add extends GetView<AddController> {
                 maxLines: null,
                 minLines: 10,
                 decoration: InputDecoration(hintText: 'description'),
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? image =
+                        await picker.pickImage(source: ImageSource.gallery);                        
+                    controller.image = image;
+                    controller.imagePath(image!.path);
+                    controller.imagePath.refresh();                    
+                  },
+                  child: Text('Chose imag')),
+              Obx(() {
+                if (controller.imagePath == '') {
+                  return Container();
+                } else {
+                  return SizedBox(
+                      height: 200,
+                      child: Image.file(File(controller.imagePath.value)));
+                }
+              }),
             ],
           ),
           Align(
