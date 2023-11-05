@@ -19,11 +19,13 @@ class HomeItemModel {
   get imagePath => _imagePath;
   set imagePath(value) => _imagePath = value;
 
+  get status => _status;
+  set status(value) => _status = value;
+
   HomeItemModel.fromJson(Map json)
       : _uuid = json['uuid'],
         _title = json['title'],
         _description = json['description'],
-        // _createdAt = json['created_at'],
         _imagePath = json['image_path'],
         _status = json['status'];
 

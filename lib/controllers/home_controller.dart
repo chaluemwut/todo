@@ -3,7 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:todo/services/sqllite_service.dart';
 
 class HomeController extends GetxController {
-  RxList todoList = [].obs;
+  final todoList = [].obs;
   final sqlLifeService = Get.find<SQLLifeService>();
   final activeSearch = [false, false, false].obs;
   final activeSearchField = ['title', 'created_at', 'status'];
@@ -20,6 +20,10 @@ class HomeController extends GetxController {
 
   void initFile() async {
     dirPath = (await getApplicationDocumentsDirectory()).path;
+  }
+
+  void updateStatus(int index) {
+    todoList[index].status = 'COMPLETE';
   }
 
   void sort(int index) async {

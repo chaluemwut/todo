@@ -10,7 +10,7 @@ class Splash extends GetView<SplashController> {
     return const Scaffold(
       backgroundColor: Color(0xFF71C6D2),
       body: Center(
-        child: Text('Todo App')
+        child: Text('Todo App', style: TextStyle(fontSize: 40, color: Colors.white))
       ),
     );
   }
