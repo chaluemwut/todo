@@ -22,10 +22,14 @@ class AddController extends GetxController {
   @override
   void onInit() {
     args = Get.arguments;
+    print('args..');
+    print(args);
     if (args != null) {
-      HomeItemModel homeItemModel = args as HomeItemModel;
+      HomeItemModel homeItemModel = args as HomeItemModel;      
       title.text = homeItemModel.title;
-      description.text = homeItemModel.description;
+      description.text = homeItemModel.description; 
+      print(title.text);
+      print(description.text);
       if (homeItemModel.imagePath != '') {
         imagePath(homeItemModel.imagePath);
         imagePath.refresh();
@@ -66,6 +70,8 @@ class AddController extends GetxController {
     description.clear();
     image = null;
     imagePath('');
-    Get.toNamed(RoutePath.home);
+    Get.back();
+    Get.delete<AddController>();    
+    // Get.toNamed(RoutePath.home);
   }
 }

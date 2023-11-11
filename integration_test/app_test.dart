@@ -18,8 +18,12 @@ void main() {
       var addBtn = find.byKey(const Key('add_btn'));
       await tester.tap(addBtn);
       await tester.pumpAndSettle();
+      String title = 'abcd';
+      String description = '1234';
+      await fillForm(tester, title, description);
 
-      await fillForm(tester, 'abcd', '1234');
+      expect(find.text(title), findsOneWidget);
+      expect(find.text(description), findsOneWidget);
     });
 
     testWidgets('insert-title-require', (WidgetTester tester) async {
@@ -27,7 +31,6 @@ void main() {
       var addBtn = find.byKey(const Key('add_btn'));
       await tester.tap(addBtn);
       await tester.pumpAndSettle();
-
 
       final description = find.byKey(const Key('description'));
       await tester.enterText(description, 'aaa');
@@ -42,10 +45,22 @@ void main() {
 
     testWidgets('update-todo', (WidgetTester tester) async {
       await setUp(tester);
-      var addBtn = find.byKey(const Key('0'));
+      var addBtn = find.byKey(const Key('add_btn'));
       await tester.tap(addBtn);
       await tester.pumpAndSettle();
-      await fillForm(tester, 'test-update-title', 'test-update-description');
+
+      await fillForm(tester, 'abcd', '1234');
+
+      var todo = find.byKey(const Key('0'));
+      await tester.tap(todo);
+      await tester.pumpAndSettle();
+
+      String title = 'test-update-title';
+      String description = 'test-update-description';
+      await fillForm(tester, title, description);
+
+      expect(find.text(title), findsOneWidget);
+      expect(find.text(description), findsOneWidget);
     });
   });
 }
@@ -63,9 +78,6 @@ Future<void> fillForm(
   var saveBtn = find.byKey(const Key('save_btn'));
   await tester.tap(saveBtn);
   await tester.pumpAndSettle();
-
-  expect(find.text(titleValue), findsOneWidget);
-  expect(find.text(descriptionValue), findsOneWidget);
 }
 
 Future<void> setUp(WidgetTester tester) async {

@@ -79,12 +79,17 @@ class Add extends GetView<AddController> {
                     );
                   }),
                   Obx(() {
-                    if (controller.imagePath == '') {
+                    try {
+                      if (controller.imagePath == '') {
+                        return Container();
+                      } else {
+                        return SizedBox(
+                            height: 200,
+                            child:
+                                Image.file(File(controller.imagePath.value)));
+                      }
+                    } catch (e) {
                       return Container();
-                    } else {
-                      return SizedBox(
-                          height: 200,
-                          child: Image.file(File(controller.imagePath.value)));
                     }
                   }),
                 ],

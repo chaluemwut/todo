@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo/controllers/home_controller.dart';
 import 'package:todo/models/home_item_model.dart';
 import 'package:todo/routes/app_pages.dart';
 
@@ -10,7 +9,7 @@ class HomeItemWidget extends StatelessWidget {
   final HomeItemModel homeItemModel;
   final index;
   HomeItemWidget({super.key, required this.homeItemModel, required this.index});
-  final homeController = Get.find<HomeController>();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +19,8 @@ class HomeItemWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: InkWell(
                 key: Key('$index'),
-                onTap: () {
-                  Get.toNamed(RoutePath.add, arguments: homeItemModel);
+                onTap: () {               
+                  Get.toNamed(RoutePath.add, arguments: homeItemModel);                  
                 },
                 child: Card(
                   child: Padding(
